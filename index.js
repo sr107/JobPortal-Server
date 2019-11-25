@@ -53,7 +53,6 @@ mongoose.connect('mongodb://localhost:27017/project', { useNewUrlParser: true, u
 //     }
 //     console.log(arraylog);
 // })
-// console.log(arraylog);
 
 app.listen(3000, function () {
     console.log('Server runing on 3000 port');

@@ -230,7 +230,7 @@ const employeecntrl = {
                 res.status(200);
             }
             else {
-                res.send("Not applied still");
+                res.send("Not applied Yet!!!");
                 res.status(200);
             }
 

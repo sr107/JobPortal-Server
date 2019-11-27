@@ -12,7 +12,7 @@ class JobService {
         return jobsmodel.find({ companyId: companyid }, { expRequired: 1, jobType: 1, jobRole: 1, postedDate: 1, _id: 0 }).exec();
     }
     sortjobsByDate() {
-        return jobsmodel.find().sort({ postedDate: -1 }).exec();
+        return jobsmodel.find().sort({postedDate:-1}).exec();
     }
     jobCompanyAndRoleCheck(companyid, jobrole) {
         return jobsmodel.findOne({ companyId: companyid, jobRole: jobrole }).exec();

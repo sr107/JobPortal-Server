@@ -137,7 +137,7 @@ const employeecntrl = {
             let latestjobs = await jobssvc.sortjobsByDate();
             let temparray = [];
             //console.log(latestjobs[3]);
-            console.log(latestjobs.length);
+            // console.log(latestjobs.length);
             for (let i = 0; i < latestjobs.length; i++) {
                 let companyid = latestjobs[i].companyId;
                 let companyname = await recruitersvc.getRecruiterName(companyid);

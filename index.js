@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 const ws = fs.createWriteStream(path.join(__dirname, "log.txt"), { flags: 'a' });
 app.use(trueLog({ level: 'full', stream: ws }));
 app.use('/public', publicrouter);
-//app.use(authorization.jwtAuth);
+app.use(authorization.jwtAuth);
 app.use('/private', privaterouter);
 app.use('/jobs', jobsrouter);
 

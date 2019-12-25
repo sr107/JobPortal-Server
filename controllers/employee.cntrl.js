@@ -60,7 +60,7 @@ const employeecntrl = {
                 res.status(200).json({ status: 1, data: { username: req.body.username, token: token } });
             }
             else {
-                res.status(200).send({ status: 0, data: 'Invalid username/password' });
+                res.status(200).send({ status: 0, data: {message:'Invalid username/password'} });
             }
         } catch (error) {
             res.send(error).status(200);

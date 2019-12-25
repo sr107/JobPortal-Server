@@ -6,10 +6,17 @@ const fs = require('fs');
 const readline = require('readline');
 const path = require('path');
 const mongoose = require('mongoose');
+var app = express();
+var cors= require('cors');
+
 const publicrouter = require('./routers/publicrouters');
 const privaterouter = require('./routers/privaterouters');
 const jobsrouter = require('./routers/jobs.router');
 const authorization = require('./middlewares/middle');
+app.use(cors({
+    origin:['http://localhost:4200','http://127.0.0.1:4200'],
+    credentials:true
+  }));
 app.use(express.static('uploads/'));
 app.use(bodyParser.json());
 const ws = fs.createWriteStream(path.join(__dirname, "log.txt"), { flags: 'a' });

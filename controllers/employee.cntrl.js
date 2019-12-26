@@ -30,13 +30,13 @@ const employeecntrl = {
             let mobile = req.body.mobile;
             let employeepresent = await employeesvc.employeecheck(mail, mobile);
             if (employeepresent.length >= 1) {
-                res.send("You are already a job seeker").status(200);
+                res.send({status:0,message:"You are already a job seeker"}).status(200);
             }
             else {
                 req.body.password = bcrypt.hashSync(req.body.password, 2);
                 let result = await employeesvc.addEmployee(req.body);
                 if (result) {
-                    res.send("Congratulations your now a job seeker").status(200);
+                    res.send({status:1,message:"Congratulations your now a job seeker"}).status(200);
                 }
 
             }

@@ -34,7 +34,7 @@ router.put('/employees/editprofile',employeecntrl.editprofile);
 
 router.post('/recruiter/uploadpicture/:id',upload.single('profileimage'),recruitercntrl.uploadprofilepicture);
 router.put('/recruiters/editprofile',recruitercntrl.editprofile);
-router.get('/employees/getjobs', employeecntrl.getjobsforseekers);
+router.get('/employees/getjobs/:id', employeecntrl.getjobsforseekers);
 router.get('/recruiters', recruitercntrl.getrecruiters);
 router.get('/recruiters/seekers/:id', recruitercntrl.seekerslist);
 router.get('/recruiters/jobs/:id', recruitercntrl.getjobsofrecruiter);

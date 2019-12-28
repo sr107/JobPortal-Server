@@ -30,13 +30,13 @@ const employeecntrl = {
             let mobile = req.body.mobile;
             let employeepresent = await employeesvc.employeecheck(mail, mobile);
             if (employeepresent.length >= 1) {
-                res.send({status:0,message:"You are already a job seeker"}).status(200);
+                res.send({ status: 0, message: "You are already a job seeker" }).status(200);
             }
             else {
                 req.body.password = bcrypt.hashSync(req.body.password, 2);
                 let result = await employeesvc.addEmployee(req.body);
                 if (result) {
-                    res.send({status:1,message:"Congratulations your now a job seeker"}).status(200);
+                    res.send({ status: 1, message: "Congratulations your now a job seeker" }).status(200);
                 }
 
             }
@@ -53,14 +53,14 @@ const employeecntrl = {
             let employee = await employeesvc.getEmployeelogin(req.body.username);
             let login = bcrypt.compareSync(req.body.password, employee.password);
             let token = jwt.sign({
-                username: req.body.username,id:employee._id
+                username: req.body.username, id: employee._id
             }, config.secret, { expiresIn: Math.floor(Date.now() / 1000) + (60 * 60) });
             if (login) {
                 //console.log(token);
                 res.status(200).json({ status: 1, data: { username: req.body.username, token: token } });
             }
             else {
-                res.status(200).send({ status: 0, data: {message:'Invalid username/password'} });
+                res.status(200).send({ status: 0, data: { message: 'Invalid username/password' } });
             }
         } catch (error) {
             res.send(error).status(200);
@@ -88,14 +88,36 @@ const employeecntrl = {
     },
     getjobsforseekers: async function (req, res) {
         try {
+            let yes = false;
+            let id = req.params.id;
+            let employee = await employeesvc.getemployeeByID(id);
+            //console.log(employee);
+            let username = employee.username;
             let alljobs = await jobssvc.getalljobs();
+            //console.log(alljobs.length);
+
+            let applied = await employeesvc.getAppliedList(username);
+            let response = applied.appliedjobs;
             let temparray = [];
-            console.log(alljobs.length);
+
             for (let i = 0; i < alljobs.length; i++) {
                 let companyid = alljobs[i].companyId;
+                // console.log(alljobs[i]._id);
+
                 let companyname = await recruitersvc.getRecruiterName(companyid);
+                for (let j = 0; j < response.length; j++) {
+                    console.log(response[j]);
+                    if (response[j] == alljobs[i]._id) {
+                        yes = true;
+                        //console.log(yes);
+                        alljobs.splice(i, 1);
+
+                    }
+                }
+
                 temparray.push({ "companyName": companyname.companyName, "jobDetails": alljobs[i] });
             }
+            // console.log(temparray.length);
             res.send(temparray);
             res.status(200);
         } catch (error) {
@@ -198,15 +220,15 @@ const employeecntrl = {
                     // console.log(companyid.appliedPeople);
                     employeeid.appliedjobs.push(jobid);
                     employeeid.save();
-                    res.send({status:1,message:"Succesfully applied for the job,Wait for recruiters Action!!!!"}).status(200);
+                    res.send({ status: 1, message: "Succesfully applied for the job,Wait for recruiters Action!!!!" }).status(200);
                 }
                 else {
-                    res.send({status:0,message:"You have applied to this Job already"});
+                    res.send({ status: 0, message: "You have applied to this Job already" });
                     res.status(200);
                 }
             }
         } catch (error) {
-            res.send({message:"Internal Server Error"}).status(500);
+            res.send({ message: "Internal Server Error" }).status(500);
         }
     },
     appliedJobsOfEmployee: async function (req, res) {
@@ -230,7 +252,7 @@ const employeecntrl = {
                 res.status(200);
             }
             else {
-                res.send({status:1,message:"Not applied Yet!!!"});
+                res.send({ status: 1, message: "Not applied Yet!!!" });
                 res.status(200);
             }
 

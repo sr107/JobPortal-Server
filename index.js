@@ -12,7 +12,7 @@ var cors= require('cors');
 const publicrouter = require('./routers/publicrouters');
 const privaterouter = require('./routers/privaterouters');
 const jobsrouter = require('./routers/jobs.router');
-const authorization = require('./middlewares/middle');
+//const authorization = require('./middlewares/middle');
 app.use(cors({
     origin:['http://localhost:4200','http://127.0.0.1:4200'],
     credentials:true
@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 const ws = fs.createWriteStream(path.join(__dirname, "log.txt"), { flags: 'a' });
 app.use(trueLog({ level: 'full', stream: ws }));
 app.use('/public', publicrouter);
-app.use(authorization.jwtAuth);
+//app.use(authorization.jwtAuth);
 app.use('/private', privaterouter);
 app.use('/jobs', jobsrouter);
 

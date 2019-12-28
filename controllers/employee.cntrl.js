@@ -53,7 +53,7 @@ const employeecntrl = {
             let employee = await employeesvc.getEmployeelogin(req.body.username);
             let login = bcrypt.compareSync(req.body.password, employee.password);
             let token = jwt.sign({
-                username: req.body.username
+                username: req.body.username,id:employee._id
             }, config.secret, { expiresIn: Math.floor(Date.now() / 1000) + (60 * 60) });
             if (login) {
                 //console.log(token);
@@ -198,15 +198,15 @@ const employeecntrl = {
                     // console.log(companyid.appliedPeople);
                     employeeid.appliedjobs.push(jobid);
                     employeeid.save();
-                    res.send("Succesfully applied for the job,Wait for recruiters Action!!!!").status(200);
+                    res.send({status:1,message:"Succesfully applied for the job,Wait for recruiters Action!!!!"}).status(200);
                 }
                 else {
-                    res.send("You have applied to this Job already");
+                    res.send({status:0,message:"You have applied to this Job already"});
                     res.status(200);
                 }
             }
         } catch (error) {
-            res.send("Internal Server Error").status(500);
+            res.send({message:"Internal Server Error"}).status(500);
         }
     },
     appliedJobsOfEmployee: async function (req, res) {
@@ -230,7 +230,7 @@ const employeecntrl = {
                 res.status(200);
             }
             else {
-                res.send("Not applied Yet!!!");
+                res.send({status:1,message:"Not applied Yet!!!"});
                 res.status(200);
             }
 

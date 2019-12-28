@@ -21,7 +21,7 @@ class JobService {
         return jobsmodel.find({ jobRole: role }, { educationalQualifications: 0, jobDescription: 0, _id: 0, __v: 0 }).exec();
     }
     getjobbyid(id) {
-        return jobsmodel.findOne({ _id: id }, { companyId: 1, jobRole: 1 }).exec();
+        return jobsmodel.findOne({ _id: id }, { companyId: 1, jobRole: 1,expRequired:1,jobType:1 }).exec();
     }
 
 }

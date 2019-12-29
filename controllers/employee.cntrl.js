@@ -88,34 +88,32 @@ const employeecntrl = {
     },
     getjobsforseekers: async function (req, res) {
         try {
-            let yes = false;
             let id = req.params.id;
             let employee = await employeesvc.getemployeeByID(id);
             //console.log(employee);
             let username = employee.username;
             let alljobs = await jobssvc.getalljobs();
-            //console.log(alljobs.length);
-
             let applied = await employeesvc.getAppliedList(username);
             let response = applied.appliedjobs;
+           // console.log(response);
             let temparray = [];
-
             for (let i = 0; i < alljobs.length; i++) {
                 let companyid = alljobs[i].companyId;
                 // console.log(alljobs[i]._id);
-
                 let companyname = await recruitersvc.getRecruiterName(companyid);
-                for (let j = 0; j < response.length; j++) {
-                    console.log(response[j]);
-                    if (response[j] == alljobs[i]._id) {
-                        yes = true;
-                        //console.log(yes);
-                        alljobs.splice(i, 1);
-
+                temparray.push({ "companyName": companyname.companyName, "jobDetails": alljobs[i] });
+            }
+            for(let i=0;i<temparray.length;i++)
+            {
+                for(let j=0;j<response.length;j++)
+                {
+                    if(temparray[i].jobDetails._id == response[j])
+                    {
+                        temparray.splice(i,1);
+                        console.log(temparray.length);
+                        break;
                     }
                 }
-
-                temparray.push({ "companyName": companyname.companyName, "jobDetails": alljobs[i] });
             }
             // console.log(temparray.length);
             res.send(temparray);

@@ -110,8 +110,8 @@ const employeecntrl = {
                     if(temparray[i].jobDetails._id == response[j])
                     {
                         temparray.splice(i,1);
-                        console.log(temparray.length);
-                        break;
+                        //console.log(temparray.length);
+                        continue;
                     }
                 }
             }

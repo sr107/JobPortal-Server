@@ -4,7 +4,7 @@ class Employee {
         return emplyeemodel.find().exec();
     }
     getprofile(id) {
-        return emplyeemodel.findById(id, { interests: 0, languages: 0, loggeddate: 0 }).exec();
+        return emplyeemodel.findById(id, {loggeddate: 0 }).exec();
     }
     employeecheck(mail, mobile) {
         return emplyeemodel.find({ $or: [{ mail: mail }, { mobile: mobile }] }).exec();

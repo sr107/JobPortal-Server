@@ -13,10 +13,20 @@ const publicrouter = require('./routers/publicrouters');
 const privaterouter = require('./routers/privaterouters');
 const jobsrouter = require('./routers/jobs.router');
 //const authorization = require('./middlewares/middle');
-app.use(cors({
-    origin:['http://localhost:4200','http://127.0.0.1:4200'],
-    credentials:true
-  }));
+var whitelist = [
+    'http://localhost:4200'
+];
+
+var corsOptions = {
+    credentials: true,
+    origin: function(origin, callback) {
+        var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+        callback(null, originIsWhitelisted);
+    },
+    methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
+    allowedHeaders: 'accept, content-type'
+};
+app.use(cors(corsOptions));
 app.use(express.static('uploads/'));
 app.use(bodyParser.json());
 const ws = fs.createWriteStream(path.join(__dirname, "log.txt"), { flags: 'a' });

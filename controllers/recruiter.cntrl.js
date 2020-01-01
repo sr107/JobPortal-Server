@@ -2,6 +2,8 @@ const recruitersvc = require('../services/recruiter.svc');
 const jobssvc = require('../services/jobs.svc');
 const employeesvc = require('../services/emplyee.svc');
 const bcrypt = require('bcryptjs');
+const config = require('../config');
+const jwt = require('jsonwebtoken');
 const recruitercntrl = {
     getrecruiters: async function (req, res) {
         try {
@@ -15,14 +17,14 @@ const recruitercntrl = {
         try {
             let recruiterpresent = await recruitersvc.checkRecruiter(req.body.companyName);
             if (recruiterpresent) {
-                res.send("Added already").status(200);
+                res.send({ status: 0, message: "You are already a job Giver" }).status(200);
             } else {
                 req.body.password = bcrypt.hashSync(req.body.password, 2);
                 await recruitersvc.addRecruiter(req.body);
-                res.send("Added Succesfully").status(200);
+                res.send({ status: 1, message: "Congratulations your now a job Giver" }).status(200);
             }
         } catch (error) {
-            res.send(error).status(200);
+            res.send('Internal Server Error').status(200);
         }
     },
     searchrecruiter: async function (req, res) {
@@ -42,11 +44,14 @@ const recruitercntrl = {
         try {
             let user = await recruitersvc.loginrecruiters(req.body.companyName);
             let login = bcrypt.compareSync(req.body.password, user.password);
+            let token = jwt.sign({
+                companyName: req.body.companyName, id: user._id
+            }, config.secret, { expiresIn: Math.floor(Date.now() / 1000) + (60 * 60) });
             if (login) {
-                res.send("Oh Your logged in!!!").status(200);
+                res.status(200).json({ status: 1, data: { companyName: req.body.companyName, token: token } });
             }
             else {
-                res.send("I think Your are drowsy.try Again With mind!!! ").status(200);
+                res.status(200).send({ status: 0, data: { message: 'Invalid username/password' } });
             }
 
         } catch (error) {
@@ -59,13 +64,13 @@ const recruitercntrl = {
             let jobsbyname = await jobssvc.getjobsByCompany(id);
             let jobscount = jobsbyname.length;
             if (jobscount > 0) {
-                res.json({ "No-of-Jobs": jobscount, "jobs": jobsbyname })
+                res.json({status:1,data:jobsbyname}).status(200);
                 // res.json(jobsbyname).status
             } else {
-                res.send("You Haven't Posted any Job Yet");
-                tes.status(200);
+                res.json({status:0,message:"You Haven't Posted any Job Yet"});
+                res.status(200);
             }
-        } catch (error) {
+        } catch(error) {
             res.send(error).status(200);
         }
     },

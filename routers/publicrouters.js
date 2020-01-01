@@ -20,5 +20,5 @@ const employeemiddleware = require('../middlewares/middle');
 router.post('/addemployee',employeecntrl.addemployees);
 router.post('/employee/login', employeecntrl.employeelogin);
 router.post('/addrecruiter',recruitercntrl.addrecruiters);
-router.post('/login', recruitercntrl.loginrecruiter);
+router.post('/recruiter/login', recruitercntrl.loginrecruiter);
 module.exports = router;

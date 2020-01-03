@@ -213,9 +213,10 @@ const employeecntrl = {
                     }
                 }
                 if (!alreadyapplied) {
-                    companyid.appliedPeople.push(employee_id);
+                    companyid.appliedPeople.push({"emp_id":employee_id,"jobrole":jobdetails.jobRole});
                     companyid.save();
-                    // console.log(companyid.appliedPeople);
+                   // companyid.fulldetails=[{"emp_id":employee_id,"job_":jobdetails.jobRole}];
+                    //console.log(companyid.appliedPeople);
                     employeeid.appliedjobs.push(jobid);
                     employeeid.save();
                     res.send({ status: 1, message: "Succesfully applied for the job,Wait for recruiters Action!!!!" }).status(200);

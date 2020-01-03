@@ -114,8 +114,12 @@ const recruitercntrl = {
             let employeelist = seekers.appliedPeople;
             let employeearray = [];
             for (let i = 0; i < employeelist.length; i++) {
-                let employeedetails = await employeesvc.profileForRecruiter(employeelist[i]);
-                employeearray.push(employeedetails);
+                
+                let employeedetails = await employeesvc.profileForRecruiter(employeelist[i].emp_id);
+                let appliedroleis=employeelist[i].jobrole;
+               
+                
+                employeearray.push({"details":employeedetails,"appliedfor":appliedroleis});
             }
             res.send(employeearray);
             res.status(200);

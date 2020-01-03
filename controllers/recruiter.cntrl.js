@@ -117,8 +117,6 @@ const recruitercntrl = {
                 
                 let employeedetails = await employeesvc.profileForRecruiter(employeelist[i].emp_id);
                 let appliedroleis=employeelist[i].jobrole;
-               
-                
                 employeearray.push({"details":employeedetails,"appliedfor":appliedroleis});
             }
             res.send(employeearray);

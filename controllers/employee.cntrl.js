@@ -95,7 +95,7 @@ const employeecntrl = {
             let alljobs = await jobssvc.getalljobs();
             let applied = await employeesvc.getAppliedList(username);
             let response = applied.appliedjobs;
-           // console.log(response);
+            // console.log(response);
             let temparray = [];
             for (let i = 0; i < alljobs.length; i++) {
                 let companyid = alljobs[i].companyId;
@@ -103,13 +103,10 @@ const employeecntrl = {
                 let companyname = await recruitersvc.getRecruiterName(companyid);
                 temparray.push({ "companyName": companyname.companyName, "jobDetails": alljobs[i] });
             }
-            for(let i=0;i<temparray.length;i++)
-            {
-                for(let j=0;j<response.length;j++)
-                {
-                    if(temparray[i].jobDetails._id == response[j])
-                    {
-                        temparray.splice(i,1);
+            for (let i = 0; i < temparray.length; i++) {
+                for (let j = 0; j < response.length; j++) {
+                    if (temparray[i].jobDetails._id == response[j]) {
+                        temparray.splice(i, 1);
                         //console.log(temparray.length);
                         continue;
                     }
@@ -213,9 +210,9 @@ const employeecntrl = {
                     }
                 }
                 if (!alreadyapplied) {
-                    companyid.appliedPeople.push({"emp_id":employee_id,"jobrole":jobdetails.jobRole});
+                    companyid.appliedPeople.push({ "emp_id": employee_id, "jobrole": jobdetails.jobRole });
                     companyid.save();
-                   // companyid.fulldetails=[{"emp_id":employee_id,"job_":jobdetails.jobRole}];
+                    // companyid.fulldetails=[{"emp_id":employee_id,"job_":jobdetails.jobRole}];
                     //console.log(companyid.appliedPeople);
                     employeeid.appliedjobs.push(jobid);
                     employeeid.save();

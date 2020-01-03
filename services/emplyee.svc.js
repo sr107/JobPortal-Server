@@ -26,7 +26,7 @@ class Employee {
         return emplyeemodel.findOne({ username: name }, { appliedjobs: 1 }).exec();
     }
     profileForRecruiter(id) {
-        return emplyeemodel.findById(id, { username: 1, mail: 1, mobile: 1, currentLocation: 1, gender: 1 }).exec();
+        return emplyeemodel.findById(id, { username: 1, mail: 1, mobile: 1, currentLocation: 1, gender: 1,interests:1 }).exec();
     }
 
 

@@ -112,15 +112,21 @@ const recruitercntrl = {
             let id = req.params.id;
             let seekers = await recruitersvc.getSeekersList(id);
             let employeelist = seekers.appliedPeople;
-            let employeearray = [];
+            if(employeelist.length>0)
+            {
+                let employeearray = [];
             for (let i = 0; i < employeelist.length; i++) {
                 
                 let employeedetails = await employeesvc.profileForRecruiter(employeelist[i].emp_id);
                 let appliedroleis=employeelist[i].jobrole;
                 employeearray.push({"details":employeedetails,"appliedfor":appliedroleis});
             }
-            res.send(employeearray);
+            res.send({status:1,employeearray});
             res.status(200);
+            }
+            else{
+                res.send({status:0,message:"NO One Has Applied till,let Wait"});
+            }
         } catch (error) {
             res.send("Internal Servrer Error");
             res.status(500);

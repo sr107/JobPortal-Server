@@ -263,7 +263,7 @@ const employeecntrl = {
             let id = req.params.id;
             let uploadedimage = await employeesvc.updateEmployee(id, req.body);
             if (uploadedimage) {
-                res.send("Profile Picture Uploaded Successfully!!");
+                res.json("Profile Picture Uploaded Successfully!!");
                 res.status(200);
             }
         } catch (error) {

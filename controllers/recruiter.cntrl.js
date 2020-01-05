@@ -79,10 +79,10 @@ const recruitercntrl = {
             let roleexist = await jobssvc.jobCompanyAndRoleCheck(req.body.companyId, req.body.jobRole);
             if (!roleexist) {
                 await jobssvc.postajob(req.body);
-                res.send("Your Jobs is Live.Lets Wait for the seekers!!!").status(200);
+                res.send({status:1,message:"Your Jobs is Live.Lets Wait for the seekers!!!"}).status(200);
             }
             else {
-                res.send("A position with same role already exists,Post Role using another Name");
+                res.send({status:0,message:"A position with same role already exists,Post Role using another Name"});
                 res.status(200);
             }
 

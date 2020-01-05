@@ -72,7 +72,7 @@ const employeecntrl = {
             //console.log(req.body.username);
             if (req.body.password) req.body.password = bcrypt.hashSync(req.body.password, 2);
             let updated = await employeesvc.updateEmployee(id, req.body);
-            console.log(updated);
+            //console.log(updated);
             //console.log("gg");
             if (updated) {
                 res.json("Updated Your Info!!!!!!!!").status(200);

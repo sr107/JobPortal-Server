@@ -123,6 +123,10 @@ const employeecntrl = {
         try {
             let id = req.params.id;
             let profile = await employeesvc.getprofile(id);
+            // if(profile.password)
+            // {
+            //     profile.password=bcrypt.encodeBase64(profile.password);
+            // }
             if (profile.profileimage) {
                 profile.profileimage = `${req.protocol}://${req.get('host')}/${profile.profileimage}`;
             }

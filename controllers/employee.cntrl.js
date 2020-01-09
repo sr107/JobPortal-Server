@@ -184,13 +184,13 @@ const employeecntrl = {
             let jobslist = await jobssvc.getjobsByCompany(companyid);
             // console.log(jobslist);
             let totaljobscount = jobslist.length;
-            console.log(totaljobscount);
+            //console.log(totaljobscount);
             if (totaljobscount >= 1) {
-                temparray.push({ "TotalJobs": totaljobscount, "companyName": companyname, "jobs": jobslist });
-                res.send(temparray).status(200);
+                //temparray.push({"jobs": jobslist} );
+                res.json({status:1,jobs:jobslist}).status(200);
             }
             else {
-                res.send("No Jobs Posted for this Company");
+                res.send({status:0,message:"No Jobs Posted for this Company"});
                 res.status(200);
             }
         } catch (error) {

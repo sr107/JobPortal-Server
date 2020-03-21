@@ -50,8 +50,9 @@ app.use('/public', publicrouter);
 app.use('/private', privaterouter);
 app.use('/jobs', jobsrouter);
 
+//mongodb://localhost:27017/project
 
-mongoose.connect('mongodb://localhost:27017/project', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (error, res) => {
+mongoose.connect('mongodb+srv://jeevan:jeevan@cluster0-jdiwq.mongodb.net/project?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (error, res) => {
     if (res) {
         console.log('DB1 Connected successfully');
     }

@@ -15,7 +15,7 @@ const jobsrouter = require('./routers/jobs.router');
 //const authorization = require('./middlewares/middle');
 var cors= require('cors');
 app.use(cors({
-    origin:['http://localhost:4200','http://127.0.0.1:4200'],
+    origin:['http://localhost:4100','http://127.0.0.1:4100'],
     credentials:true
   }));
   

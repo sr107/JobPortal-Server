@@ -16,10 +16,7 @@ const jobsrouter = require('./routers/jobs.router');
 const defultrouter=require('./routers/default.router');
 //const authorization = require('./middlewares/middle');
 var cors= require('cors');
-app.use(cors({
-    origin:'*',
-    credentials:true
-  }));
+app.use(cors());
   
 // var cors = require('cors');
 // var whitelist = [

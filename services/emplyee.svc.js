@@ -17,7 +17,7 @@ class Employee {
         return emplyeemodel.findOne({ username: username }).exec();
     }
     updateEmployee(id, data) {
-        return emplyeemodel.findByIdAndUpdate(id,{ $set: data}).exec();
+        return emplyeemodel.findOneAndUpdate(id,{ $set: data}).exec();
     }
     getemployeeByID(id) {
         return emplyeemodel.findById(id).exec();

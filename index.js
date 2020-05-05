@@ -39,7 +39,7 @@ app.options('*', cors());
 //     'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
 //     'preflightContinue': false
 //   }));
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(express.static('uploads/'));
 app.use(bodyParser.json());
 const ws = fs.createWriteStream(path.join(__dirname, "log.txt"), { flags: 'a' });

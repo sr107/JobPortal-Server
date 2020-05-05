@@ -21,7 +21,7 @@ var cors= require('cors');
 var cors = require('cors');
 var whitelist = [
     'http://localhost:4200',
-    'https://naukari-portal.herokuapp.com/'
+    'https://naukari-portal.herokuapp.com'
 ];
 
 var corsOptions = {

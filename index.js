@@ -45,7 +45,7 @@ app.use(bodyParser.json());
 const ws = fs.createWriteStream(path.join(__dirname, "log.txt"), { flags: 'a' });
 app.use(trueLog({ level: 'full', stream: ws }));
 app.get('/', function (req, res) {
-    res.send('Hello!!! Jobs Portal')
+    res.send('Hey!!! Jobs Portal')
   })
 app.use('/public', publicrouter);
 //app.use(authorization.jwtAuth);

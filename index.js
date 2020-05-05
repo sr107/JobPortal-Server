@@ -13,6 +13,7 @@ var app = express();
 const publicrouter = require('./routers/publicrouters');
 const privaterouter = require('./routers/privaterouters');
 const jobsrouter = require('./routers/jobs.router');
+const defultrouter=require('./routers/default.router');
 //const authorization = require('./middlewares/middle');
 var cors= require('cors');
 app.use(cors({
@@ -46,6 +47,9 @@ app.use(express.static('uploads/'));
 app.use(bodyParser.json());
 const ws = fs.createWriteStream(path.join(__dirname, "log.txt"), { flags: 'a' });
 app.use(trueLog({ level: 'full', stream: ws }));
+app.get('/', function (req, res) {
+    res.send('Hello!!! Jobs Portal')
+  })
 app.use('/public', publicrouter);
 //app.use(authorization.jwtAuth);
 app.use('/private', privaterouter);

@@ -16,30 +16,30 @@ const jobsrouter = require('./routers/jobs.router');
 const defultrouter=require('./routers/default.router');
 //const authorization = require('./middlewares/middle');
 var cors= require('cors');
-app.use(cors());
+// app.use(cors());
   
 // var cors = require('cors');
 // var whitelist = [
 //     'http://localhost:4200'
 // ];
 
-// var corsOptions = {
-//     credentials: true,
-//     origin: function(origin, callback) {
-//         var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
-//         callback(null, originIsWhitelisted);
-//     },
-//     methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
-//     allowedHeaders: 'accept, content-type,Authorization'
-// };
-// app.use(cors({
-//     'allowedHeaders': ['sessionId', 'Content-Type'],
-//     'exposedHeaders': ['sessionId'],
-//     'origin': '*',
-//     'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     'preflightContinue': false
-//   }));
-//app.use(cors(corsOptions));
+var corsOptions = {
+    credentials: true,
+    origin: function(origin, callback) {
+        var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+        callback(null, originIsWhitelisted);
+    },
+    methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
+    allowedHeaders: 'accept, content-type,Authorization'
+};
+app.use(cors({
+    'allowedHeaders': ['sessionId', 'Content-Type'],
+    'exposedHeaders': ['sessionId'],
+    'origin': '*',
+    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'preflightContinue': false
+  }));
+app.use(cors(corsOptions));
 app.use(express.static('uploads/'));
 app.use(bodyParser.json());
 const ws = fs.createWriteStream(path.join(__dirname, "log.txt"), { flags: 'a' });

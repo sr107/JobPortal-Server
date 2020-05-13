@@ -15,7 +15,7 @@ const privaterouter = require('./routers/privaterouters');
 const jobsrouter = require('./routers/jobs.router');
 const defultrouter=require('./routers/default.router');
 //const authorization = require('./middlewares/middle');
-var cors= require('cors');
+// var cors= require('cors');
 // app.use(cors());
 // app.options('*', cors());
 var cors = require('cors');
